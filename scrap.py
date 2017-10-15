@@ -1,6 +1,18 @@
 import urllib.request
+import urllib.error
 from bs4 import BeautifulSoup
-html = urllib.request.urlopen('https://www.nytimes.com/')
-bsObj = BeautifulSoup(html.read(), "lxml")
-#print(html)
 
+def get_html(url):
+    try:
+         html = urllib.request.urlopen(url)
+    except HTTPError as e:
+        return None
+    try:
+        bsObj = BeautifulSoup(html.read(), "lxml")
+    except AttributeError as e:
+        return None
+    return bsObj
+
+obj = get_html('https://www.nytimes.com/')
+
+print("Done")
